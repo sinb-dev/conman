@@ -10,4 +10,5 @@ edition = "2018"
 rweblet = { git = 'https://github.com/sinb-dev/rweblet' }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-rs-docker = "0.0.58"
+#docker = "0.0.41"
+#rs-docker = "0.0.58"

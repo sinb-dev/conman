@@ -1,10 +1,12 @@
 use rweblet::{HttpListener, Context, Response};
 use std::env;
 use std::process::Command;
-extern crate rs_docker;
-
-use rs_docker::Docker;
-use rs_docker::container::{ Container };
+//extern crate rs_docker;
+//use rs_docker::Docker;
+//use rs_docker::container::{ Container };
+extern crate docker;
+use docker::Docker
+use docker::container::{ Container };
 use serde::{Serialize};
 use serde_json::Result;
 fn main() {
@@ -22,12 +24,10 @@ fn main() {
     
     webserver.threads(threads);
 
-    
-
     println!("Starting server on 0.0.0.0:8080 with {} threads", threads);
     webserver.start("0.0.0.0:8080",1);
-    println!("Huh");
 }
+
 fn rq_run(context: &Context) -> Response {
     let folders: Vec<&str> = context.request.url.split("/").collect();
     for f in &folders {
@@ -41,6 +41,7 @@ fn rq_run(context: &Context) -> Response {
 
     Response::ok_json(json.as_ref())
 }
+
 fn rq_list(context: &Context) -> Response {
     let mut docker = match Docker::connect("unix:///var/run/docker.sock") {
     	Ok(docker) => docker,
